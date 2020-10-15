@@ -24,9 +24,9 @@ class Counters extends Component {
             ))}
           </tbody>
         </table> */}
-
+        <br />
         {this.state.counters.map((counter) => (
-          <Counter key={counter.id}></Counter>
+          <Counter key={counter.id} />
         ))}
         <br />
       </div>
