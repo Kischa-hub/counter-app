@@ -4,31 +4,55 @@ import Counter from "./counter";
 class Counters extends Component {
   state = {
     counters: [
-      { id: 1, value: 0 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 0 },
+      { id: 1, value: 4 },
+      { id: 2, value: 3 },
+      { id: 3, value: 1 },
+      { id: 4, value: 10 },
     ],
   };
+
+  handelDelete = (counterId) => {
+    // console.log("Event Handler Called", this.state.counterId);
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters: counters });
+  };
+
+  handelReset = () => {
+    const counters = this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+    this.setState({ Counters: counters });
+  };
+
   render() {
     return (
       <div>
-        {/* <table className="table tbody tr td">
+        <button
+          onClick={this.handelReset}
+          className="btn btn-primary btn-sm m-2"
+        >
+          Reset
+        </button>
+        <table className="table tbody tr td">
           <tbody>
             {this.state.counters.map((counter) => (
-              <tr>
-                <th>
-                  <Counter key={counter.id}></Counter>
+              <tr key={counter.id}>
+                <th key={counter.id}>
+                  <Counter
+                    key={counter.id}
+                    onDelete={this.handelDelete}
+                    counter={counter}
+                  ></Counter>
                 </th>
               </tr>
             ))}
           </tbody>
-        </table> */}
-        <br />
-        {this.state.counters.map((counter) => (
-          <Counter key={counter.id} />
-        ))}
-        <br />
+        </table>
+
+        {/* {this.state.counters.map((counter) => (
+          <Counter key={counter.id}></Counter>
+        ))} */}
       </div>
     );
   }
