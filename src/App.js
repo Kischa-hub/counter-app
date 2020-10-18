@@ -14,9 +14,26 @@ class App extends Component {
     ],
   };
 
+  // constructor() {
+  //   super();
+  //   console.log("App - Constructor");
+  // }
+
+  // componentDidMount() {
+  //   console.log("App - Mounted");
+  // }
+
   handelDelete = (counterId) => {
-    // console.log("Event Handler Called", this.state.counterId);
+    console.log("Event Handler Delete Called", this.state.counterId);
     const counters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters: counters });
+  };
+
+  handelReset = () => {
+    const counters = this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
     this.setState({ counters: counters });
   };
 
@@ -28,14 +45,16 @@ class App extends Component {
     this.setState({ counters: counters });
   };
 
-  handelReset = () => {
-    const counters = this.state.counters.map((c) => {
-      c.value = 0;
-      return c;
-    });
+  handelDecrement = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
     this.setState({ counters: counters });
   };
+
   render() {
+    //console.log("App - Renderd");
     return (
       <React.Fragment>
         <NavBar
@@ -46,6 +65,7 @@ class App extends Component {
             onReset={this.handelReset}
             onDelete={this.handelDelete}
             onIncrement={this.handelIncrement}
+            onDecrement={this.handelDecrement}
             counters={this.state.counters}
           />
         </main>
